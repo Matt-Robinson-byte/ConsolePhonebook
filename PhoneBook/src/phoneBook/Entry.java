@@ -17,8 +17,8 @@ import java.util.*;
 
 public class Entry{
 	
-	private static Object[] addressArray = new Object[100];
-	private static Object[] personArray = new Object[100];
+	public static Object[] addressArray = new Object[100];
+	public static Object[] personArray = new Object[100];
 	private Person person;
 	private Address address;
 	

@@ -92,6 +92,7 @@ public class PhoneBook {
 			case 2://creates an entry in phonebook from one continuous string
 				System.out.print("Enter complete info separated by a comma(last name, first name, street addr., city, state, zip, phone number: ");
 				in.nextLine();
+				
 				String completeInfo = in.nextLine();
 				//splits continuous string into parts 
 				String[] infoArray = completeInfo.split(",");
@@ -189,13 +190,87 @@ public class PhoneBook {
 				break;
 			
 			case 11:
-				System.out.println();
+				Entry.showEntries(0);
+				System.out.println("Enter contact ID number to edit: ");
+				int id = in.nextInt();
+				System.out.println("1. First Name");
+				System.out.println("2. Last Name");
+				System.out.println("3. Street Address");
+				System.out.println("4. City");
+				System.out.println("5. State");
+				System.out.println("6. Zip Code");
+				System.out.println("7. Telephone Number");
+				
+				System.out.println("Enter option to edit: ");
+				int opt = in.nextInt();
+				switch(opt) {
+				case 1:
+					System.out.println("Enter new first name: ");
+					in.nextLine();
+					String change = in.nextLine();
+					((Person) Entry.personArray[id-1]).setFirstName(capitalizeFirst(change));
+					break;
+				case 2:
+					System.out.println("Enter new last name: ");
+					in.nextLine();
+					change = in.nextLine();
+					((Person) Entry.personArray[id-1]).setLastName(capitalizeFirst(change));
+					break;
+				case 3:
+					System.out.println("Enter new street address: ");
+					in.nextLine();
+					change = in.nextLine();
+					stAdd = change.split(" ");
+					street = "";
+					for(String str: stAdd) {
+						if(!str.matches("(0|[1-9]\\d*)"))
+							street+=capitalizeFirst(str)+" ";
+						else 
+							street+=str+" ";
+					}
+					((Address) Entry.addressArray[id-1]).setStreet(capitalizeFirst(street));
+					break;
+				case 4:
+					System.out.println("Enter new city: ");
+					in.nextLine();
+					change = in.nextLine();
+					ctAdd = change.trim().split(" ");
+					ct = "";
+					for(String c: ctAdd) {
+						if(!c.matches("(0|[1-9]\\d*)"))
+							ct+=capitalizeFirst(c)+" ";
+						else 
+							ct+=c+" ";
+					}
+					((Address) Entry.addressArray[id-1]).setCity(ct);
+					break;
+				case 5:
+					System.out.println("Enter new state: ");
+					in.nextLine();
+					change = in.next();
+					((Address) Entry.addressArray[id-1]).setState(stateChange(change));
+					break;
+				case 6:
+					System.out.println("Enter new zip code: ");
+					change = in.next();
+					((Address) Entry.addressArray[id-1]).setZip(change);
+					break;
+				case 7:
+					System.out.println("Enter new telephone number: ");
+					change = in.next();
+					((Address) Entry.personArray[id-1]).setPhone(change);
+					break;
+				default:
+					System.out.println("Invalid Entry...Try again");
+					break;
+				}
+				
 				break;
 				
 			case 12: 
 				Entry.showEntries(0);
 				System.out.println("Enter contact ID number to delete: ");
-				int id = in.nextInt();
+				id = in.nextInt();
 				Entry.deleteEntry(id-1);
 				System.out.println();
 				break; 
